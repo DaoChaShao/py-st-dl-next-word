@@ -5,6 +5,7 @@
 
 ### Features
 
+- add requirements.txt file with dependencies for the project ([dcc0e15](https://github.com///commit/dcc0e15ad24f97c0fc2785fd6bd8e35b8b74a525))
 - add configuration files for English and Chinese pipelines with model details and accuracy metrics ([c590eed](https://github.com///commit/c590eed7c016a765d7ea325f8b256a9ebacca6b0))
 - add raw data synthesized_.jsonl ([52f7fe9](https://github.com///commit/52f7fe95d2e399fbfc815c5be6a83aedfb832fde))
 - add uv.lock ([ecd389c](https://github.com///commit/ecd389c1e129e49cdb1f30a52f7ed9405ecdb504))
@@ -67,6 +68,7 @@
 
 ### Docs
 
+- update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))
 - fix formatting in README.md for better readability ([8176479](https://github.com///commit/8176479eac7aef53144377c1c942de40c70545da))
 - update CHANGELOG.md to include new features and documentation updates ([d9ad30e](https://github.com///commit/d9ad30e0db74c0e466efe828a619030e2165202f))
 - add CHANGELOG.md for version 0.1.0 with features and bug fixes ([e2e8091](https://github.com///commit/e2e8091d60170616ef483e5b5d56259a2737402d))

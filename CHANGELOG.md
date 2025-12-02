@@ -5,6 +5,7 @@
 
 ### Features
 
+- add configuration files for English and Chinese pipelines with model details and accuracy metrics ([c590eed](https://github.com///commit/c590eed7c016a765d7ea325f8b256a9ebacca6b0))
 - add raw data synthesized_.jsonl ([52f7fe9](https://github.com///commit/52f7fe95d2e399fbfc815c5be6a83aedfb832fde))
 - add uv.lock ([ecd389c](https://github.com///commit/ecd389c1e129e49cdb1f30a52f7ed9405ecdb504))
 - add unet_sem_seg.py for binary segmentation with IoU evaluation and training management ([e4d0ed6](https://github.com///commit/e4d0ed67a547092e1e28546450a95d21a93bbc3c))
@@ -63,4 +64,8 @@
 ### Chore
 
 - add .gitignore file to exclude Python and IDE-specific files ([f5d9a90](https://github.com///commit/f5d9a903d79f2ae3556a2d075bbcc09942944da8))
+
+### Docs
+
+- add CHANGELOG.md for version 0.1.0 with features and bug fixes ([e2e8091](https://github.com///commit/e2e8091d60170616ef483e5b5d56259a2737402d))
 

@@ -67,5 +67,7 @@
 
 ### Docs
 
+- fix formatting in README.md for better readability ([8176479](https://github.com///commit/8176479eac7aef53144377c1c942de40c70545da))
+- update CHANGELOG.md to include new features and documentation updates ([d9ad30e](https://github.com///commit/d9ad30e0db74c0e466efe828a619030e2165202f))
 - add CHANGELOG.md for version 0.1.0 with features and bug fixes ([e2e8091](https://github.com///commit/e2e8091d60170616ef483e5b5d56259a2737402d))
 

@@ -6,8 +6,8 @@
 **INTRODUCTION**
 ---
 This project utilizes the [HundredCV-Chat (Original)](https://huggingface.co/datasets/Jax-dan/HundredCV-Chat)
-or [HundredCV-Chat (Mirror)](https://hf-mirror.com/datasets/Jax-dan/HundredCV-Chat) multimodal dialogue dataset with *
-*PyTorch** and **RNN neural network** architectures to implement **Next Word Prediction** functionality for intelligent
+or [HundredCV-Chat (Mirror)](https://hf-mirror.com/datasets/Jax-dan/HundredCV-Chat) multimodal dialogue dataset with
+**PyTorch** and **RNN neural network** architectures to implement **Next Word Prediction** functionality for intelligent
 input methods. By analyzing conversation texts related to resume images, the model learns language patterns and provides
 intelligent completion suggestions for user input.
 

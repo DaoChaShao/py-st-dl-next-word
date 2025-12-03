@@ -15,6 +15,7 @@ from tqdm import tqdm
 
 from src.configs.cfg_base import CONFIG
 from src.utils.decorator import timer
+from src.utils.THU import cut_only
 
 nlp_en = load(CONFIG.FILEPATHS.SPACY_MODEL_EN)
 nlp_zh = load(CONFIG.FILEPATHS.SPACY_MODEL_ZH)
@@ -60,18 +61,19 @@ def count_frequency(words: list[str], top_k: int = 10, freq_threshold: int = 3) 
     """
     # Get word frequency using Counter
     counter = Counter(words)
-    words_high_freq: list[str] = [word for word, count in counter.most_common() if count > freq_threshold]
-    words_low_freq: list[str] = [word for word, count in counter.most_common() if count <= freq_threshold]
+    words = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
+    high_freq: list[str] = [word for word, count in words if count > freq_threshold]
+    low_freq: list[str] = [word for word, count in words if count <= freq_threshold]
 
     cols: list[str] = ["word", "frequency"]
-    sorted_freq = counter.most_common(top_k)
+    sorted_freq = words[:top_k]
     df: DataFrame = DataFrame(sorted_freq, columns=cols)
     sorted_df = df.sort_values(by="frequency", ascending=False)
 
     print(f"Word Frequency Results:\n{sorted_df}")
-    print(f"{len(words_low_freq)} low frequency words has been filtered out (frequency <= {freq_threshold}).")
+    print(f"{len(low_freq)}, {len(low_freq) / len(counter):.2%} low frequency words has been filtered.")
 
-    return words_high_freq, sorted_df
+    return high_freq, sorted_df
 
 
 @timer
@@ -191,6 +193,30 @@ def build_word2id_seqs(contents: list[list[str]], dictionary: dict[str, int]) ->
         sequences.append(sequence)
 
     return sequences
+
+
+@timer
+def check_vocab_coverage(words: list[str], dictionary: dict[str, int]) -> float:
+    """ Check the vocab coverage
+    :param words: list of words
+    :param dictionary: word2id mapping dictionary
+    :return: vocab coverage
+    """
+    counter: int = sum(1 for word in words if word in dictionary)
+    coverage: float = counter / len(words)
+
+    if coverage >= 0.95:
+        rating = "Perfect"
+    elif coverage >= 0.90:
+        rating = "Good"
+    elif coverage >= 0.85:
+        rating = "Enough"
+    else:
+        rating = "Bad"
+
+    print(f"The coverage of vocabs in the sentences is {coverage:.2%}, and {rating}.")
+
+    return coverage
 
 
 if __name__ == "__main__":

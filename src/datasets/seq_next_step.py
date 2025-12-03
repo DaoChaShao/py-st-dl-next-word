@@ -13,16 +13,27 @@ from torch.utils.data import Dataset
 class TorchDataset4SeqPredictionNextStep(Dataset):
     """ A custom PyTorch Dataset class for handling sequential features and labels """
 
-    def __init__(self, sequences: list, seq_max_len: int, pad_token: int) -> None:
+    def __init__(self, sequences: list, seq_max_len: int, mode: str, pad_token: int) -> None:
         """ Initialise the TorchDataset class for sequential data
         :param sequences: the input sequences
         :param seq_max_len: the length of each sequence
+        :param mode: the mode of sequential data
         :param pad_token: the padding token to use
         """
         self._sequences = sequences
         self._length = seq_max_len
+        self._mode = mode
         self._pad = pad_token
-        self._features, self._labels = self._pad_to_seq2seq_tensor()
+
+        match mode:
+            case "seq2one":
+                self._features, self._labels = self._pad_to_seq2one_tensor()
+            case "seq2seq":
+                self._features, self._labels = self._pad_to_seq2seq_tensor()
+            case "slice":
+                self._features, self._labels = self._slice_to_tensor()
+            case _:
+                raise ValueError(f"Invalid mode: {mode}")
 
     def _pad_to_seq2one_tensor(self) -> tuple[Tensor, Tensor]:
         """ Convert input data to a PyTorch tensor via padding for one-step prediction

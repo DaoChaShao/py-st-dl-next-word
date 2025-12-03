@@ -6,7 +6,7 @@
 # @File     :   stats.py
 # @Desc     :   
 
-from json import load, dump
+from json import load, dump, loads
 from numpy import ndarray, array, cumsum, argmax, random as np_random, sum as np_sum, sqrt as np_sqrt
 from pandas import DataFrame, Series, read_csv
 from pprint import pprint
@@ -167,7 +167,7 @@ def split_paths(image_paths: list, mask_paths: list, test_size: float = 0.2, shu
 
 
 @timer
-def split_train(
+def create_train_valid_split_byXy(
         features: DataFrame | list, labels: DataFrame | list,
         valid_size: float = 0.2, random_state: int = 27, shuffle_status: bool = True
 ) -> tuple:
@@ -198,7 +198,9 @@ def split_train(
 
 
 @timer
-def split_data(features: DataFrame, labels: DataFrame, randomness: int = 27, shuffle_status: bool = True) -> tuple:
+def create_full_data_split_byXy(
+        features: DataFrame | list, labels: DataFrame, randomness: int = 27, shuffle_status: bool = True
+) -> tuple:
     """ Split the image and mask paths into training and validation sets
     :param features: DataFrame of features
     :param labels: DataFrame of labels
@@ -228,21 +230,62 @@ def split_data(features: DataFrame, labels: DataFrame, randomness: int = 27, shu
 
 
 @timer
-def save_json(json_data: dict, json_path: str | Path) -> None:
+def create_full_data_split(data: DataFrame | list, randomness: int = 27, shuffle_status: bool = True) -> tuple:
+    """ Split the image and mask paths into training and validation sets
+    :param data: DataFrame of features
+    :param randomness: random seed for reproducibility
+    :param shuffle_status: whether to shuffle the data before splitting
+    :return: the training and validation sets for image and mask paths
+    """
+    data_train, data_temp = train_test_split(
+        data,
+        test_size=0.3,
+        random_state=randomness,
+        shuffle=shuffle_status,
+    )
+    data_valid, data_prove = train_test_split(
+        data_temp,
+        test_size=0.5,
+        random_state=randomness,
+        shuffle=shuffle_status,
+    )
+    print(f"Training set: {len(data_train)}")
+    print(f"Validation set: {len(data_valid)}")
+    print(f"Proving set: {len(data_prove)}")
+
+    return data_train, data_valid, data_prove
+
+
+@timer
+def save_json(json_data: dict, json_path: str | Path, old_fashioned: bool = False) -> None:
+    """ Save a json file
+    :param json_data: data to be saved
+    :param json_path: path to the json file
+    :param old_fashioned: whether to save the old fashioned data
+    """
     with open(str(json_path), "w", encoding="utf-8") as file:
-        dump(json_data, file, indent=2)
+        dump(json_data, file, indent=2, ensure_ascii=old_fashioned)
 
     print(f"JSON data saved to {json_path}.")
 
 
 @timer
-def load_json(json_path: str | Path) -> dict:
+def load_json(json_path: Path) -> dict:
     """ Load JSON data from a file
     :param json_path: path to the JSON file
     :return: data loaded from the JSON file
     """
-    with open(str(json_path), "r", encoding="utf-8") as file:
-        data: dict = load(file)
+    data: dict | list | None = None
+    if json_path.suffix == ".json":
+        with open(str(json_path), "r", encoding="utf-8") as file:
+            data: dict = load(file)
+    elif json_path.suffix == ".jsonl":
+        data: list = []
+        with open(str(json_path), "r", encoding="utf-8") as file:
+            for line in file:
+                line = line.strip()
+                if line:
+                    data.append(loads(line))
 
     print(f"JSON data loaded from {json_path}:")
 

@@ -3,13 +3,13 @@
 # @Time     :   2025/12/3 00:07
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   preparer.py
+# @File     :   prepper.py
 # @Desc     :   
 
-def main() -> None:
+def prepare_data() -> None:
     """ Main Function """
     pass
 
 
 if __name__ == "__main__":
-    main()
+    prepare_data()

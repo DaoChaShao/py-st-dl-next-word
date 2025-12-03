@@ -1,10 +1,29 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/ce6dff8cae32df74d3531de065508043f04da989...0.1.0) (2025-12-03)
+## [0.1.0](https://github.com///compare/ce6dff8cae32df74d3531de065508043f04da989...0.1.0) (2025-12-04)
 
 ### Features
 
+- add dictionary.json ([e13f6a0](https://github.com///commit/e13f6a0fa8f96095974d35720574e6a15e9b80e0))
+- add sqlite3.db ([c5bc439](https://github.com///commit/c5bc4397f9c41e09536a415a0a0574fbdd0a1cb5))
+- enhance data splitting functions and JSON handling in stats.py ([946df5c](https://github.com///commit/946df5cdfd0568273b17cf2148f60173539a5a1b))
+- implement SQLiteIII class for database interactions with CRUD operations ([461c0eb](https://github.com///commit/461c0ebcff5b5e9f3ab2719dc1b1f1baf0ce912c))
+- add mode parameter to TorchDataset4SeqPredictionNextStep for flexible tensor conversion ([2a1a911](https://github.com///commit/2a1a91149665f1e2dd7332a211a6b528f0cf244e))
+- implement RNN model for multi-class classification with summary method ([b904fc8](https://github.com///commit/b904fc8ae3b85b54d35c3ee7d750abb9b00d3efa))
+- add data processing module for training and validation datasets ([3e56404](https://github.com///commit/3e564042c3387bba1766ec71f60e7931dc272320))
+- implement data preprocessing function and integrate SQLite database storage ([e7deee7](https://github.com///commit/e7deee7b4d1c527119ae7e85cd8e60738e8e433c))
+- enhance word frequency analysis and add vocab coverage check function ([9921a60](https://github.com///commit/9921a60170340e1f7719049cb73be95865b8a2fd))
+- add SeqMode4DataSet enumeration for dataset sequencing modes ([2b07891](https://github.com///commit/2b0789157ee4f61c637b00f93aa3475aace1ab62))
+- add Database configuration to Configuration4UNet class ([143d0aa](https://github.com///commit/143d0aadfae7f2e0c8df987af47bf11f065352c1))
+- add Database configuration and update RNN parameters in cfg_rnn.py ([480b73d](https://github.com///commit/480b73d4b696daf0a82ee5bc084324558c580c77))
+- add Database configuration to Configuration4MLP class ([4ba1a54](https://github.com///commit/4ba1a54b2e7cc21162574d66999f67b21e7b8153))
+- add Database configuration to Configuration4CNN class ([564c499](https://github.com///commit/564c499de419fd67d934a6d0dc710b7cb600b00c))
+- update DataPreprocessor and Config4DL classes with new parameters and default configurations ([ad60bfd](https://github.com///commit/ad60bfdba829026f9963952dde5e89ec114bbec4))
+- update file paths and add database configuration to cfg_base.py ([bca3b54](https://github.com///commit/bca3b544b1375468addd498cf0d80d1dbcc80172))
+- add SQL module for database management and update exports in __init__.py ([ab01c6c](https://github.com///commit/ab01c6c69bb6750d54354dd4517dc24db9e53846))
+- add eMun options functionality and update exports in __init__.py ([2a4a018](https://github.com///commit/2a4a0185aeeeeea3ff1c6fea0b299babc6f20bbc))
+- add __init__.py for data processing module with utility functions ([1150d6c](https://github.com///commit/1150d6c5994a44c8e0641a19fa3a772a79333a27))
 - add requirements.txt file with dependencies for the project ([dcc0e15](https://github.com///commit/dcc0e15ad24f97c0fc2785fd6bd8e35b8b74a525))
 - add configuration files for English and Chinese pipelines with model details and accuracy metrics ([c590eed](https://github.com///commit/c590eed7c016a765d7ea325f8b256a9ebacca6b0))
 - add raw data synthesized_.jsonl ([52f7fe9](https://github.com///commit/52f7fe95d2e399fbfc815c5be6a83aedfb832fde))
@@ -68,8 +87,13 @@
 
 ### Docs
 
+- update CHANGELOG.md to reflect recent additions and changes ([38508da](https://github.com///commit/38508daf86df96e478538c0a13f6311f1d7e5fae))
 - update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))
 - fix formatting in README.md for better readability ([8176479](https://github.com///commit/8176479eac7aef53144377c1c942de40c70545da))
 - update CHANGELOG.md to include new features and documentation updates ([d9ad30e](https://github.com///commit/d9ad30e0db74c0e466efe828a619030e2165202f))
 - add CHANGELOG.md for version 0.1.0 with features and bug fixes ([e2e8091](https://github.com///commit/e2e8091d60170616ef483e5b5d56259a2737402d))
+
+### Code Refactoring
+
+- rename preparer.py to prepper.py and update main function to prepare_data ([6ac1988](https://github.com///commit/6ac1988eb7e63f414f92a58a8476710653317f82))
 

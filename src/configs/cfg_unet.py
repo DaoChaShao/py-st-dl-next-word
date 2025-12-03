@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths
+from src.configs.cfg_base import FilePaths, Database
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -20,6 +20,7 @@ class UNetParams:
 
 @dataclass
 class Configuration4UNet:
+    DATABASE: Database = field(default_factory=Database)
     FILEPATHS: FilePaths = field(default_factory=FilePaths)
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
     PARAMETERS: UNetParams = field(default_factory=UNetParams)

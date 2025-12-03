@@ -21,6 +21,7 @@ Main Categories:
 + Logger: structured log logs
 + nlp: Chinese/English text processing and tokenization
 + PT: PyTorch tensor operations and device management
++ SQL: SQL queries and database management
 + stats: Statistical data processing and analysis, File I/O operations (CSV, JSON, text), and data standardization and dimensionality reduction
 + THU: Chinese word segmentation with THULAC
 
@@ -46,14 +47,16 @@ from .logger import record_log
 from .nlp import (regular_chinese, regular_english,
                   count_frequency, unique_characters, extract_zh_chars,
                   spacy_single_tokeniser, spacy_batch_tokeniser,
-                  build_word2id_seqs)
+                  build_word2id_seqs,
+                  check_vocab_coverage)
 from .PT import (TorchRandomSeed,
                  check_device, get_device,
                  series2tensor, sequences2tensors)
+from .SQL import SQLiteIII
 from .stats import (NumpyRandomSeed,
                     load_csv, load_text, summary_dataframe,
                     load_paths, split_paths,
-                    split_train, split_data,
+                    create_train_valid_split_byXy, create_full_data_split_byXy, create_full_data_split,
                     save_json, load_json,
                     create_data_transformer, transform_data,
                     pca_importance,
@@ -80,15 +83,18 @@ __all__ = [
     "count_frequency", "unique_characters", "extract_zh_chars",
     "spacy_single_tokeniser", "spacy_batch_tokeniser",
     "build_word2id_seqs",
+    "check_vocab_coverage",
 
     "TorchRandomSeed",
     "check_device", "get_device",
     "series2tensor", "sequences2tensors",
 
+    "SQLiteIII",
+
     "NumpyRandomSeed",
     "load_csv", "load_text", "summary_dataframe",
     "load_paths", "split_paths",
-    "split_train", "split_data",
+    "create_train_valid_split_byXy", "create_full_data_split_byXy", "create_full_data_split",
     "save_json", "load_json",
     "create_data_transformer", "transform_data",
     "pca_importance",

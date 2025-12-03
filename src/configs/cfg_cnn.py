@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths
+from src.configs.cfg_base import FilePaths, Database
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -22,6 +22,7 @@ class CNNParams:
 
 @dataclass
 class Configuration4CNN:
+    DATABASE: Database = field(default_factory=Database)
     FILEPATHS: FilePaths = field(default_factory=FilePaths)
     PARAMETERS: CNNParams = field(default_factory=CNNParams)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)

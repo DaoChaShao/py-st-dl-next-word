@@ -8,11 +8,11 @@
 
 """
 ****************************************************************
-Trainers Module - PyTorch Training Implementations
+Trainers & Metrics Module - PyTorch Implementations
 ----------------------------------------------------------------
 This module provides a complete set of specialized PyTorch trainer
-classes for various machine learning tasks including regression,
-sequence classification, and semantic segmentation.
+classes and metric calculators for various machine learning tasks
+including regression, sequence classification, and semantic segmentation.
 
 Main Categories:
 + TorchTrainer4Regression: Trainer for regression models such as MLP
@@ -23,26 +23,38 @@ Main Categories:
   data batching and classification evaluation
 
 + TorchTrainer4UNetSemSeg: Trainer for UNet-based semantic segmentation
-  with image-mask training cycles, IoU computation, and segmentation
-  score evaluation
+  with image-mask training cycles, IoU computation, pixel accuracy,
+  and confusion matrix evaluation
+
+Utility Functions:
++ calculator_for_classification: Metrics calculation for classification
++ calculator_for_confusion_metrics: Confusion matrix-based metrics
++ calc_binary_sem_seg_iou: Binary semantic segmentation IoU and pixel accuracy
++ calculator_for_regression: Regression metrics computation
 
 Usage:
 + Direct import of trainer classes via:
     - from src.trainers import TorchTrainer4Regression, TorchTrainer4UNetSemSeg, etc.
-+ Instantiate trainers with model, data loaders, optimizer, and config
-  to perform complete supervised training workflows.
++ Instantiate trainer classes with model, data loaders, optimizer, and config
+  to perform full supervised training workflows with built-in metrics.
 ****************************************************************
 """
 
 __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
-from .mlp_regression import TorchTrainer4Regression
-from .rnn_seq_classification import TorchTrainer4Seq2Classification
-from .unet_sem_seg import TorchTrainer4UNetSemSeg
+from .calc4classification import calculator_for_classification
+from .calc4cm import calculator_for_confusion_metrics
+from .calc4iou import calc_binary_sem_seg_iou
+from .calc4regression import calculator_for_regression
+from .trainer4sem_seg import TorchTrainer4UNetSemSeg
+from .trainer4torch import TorchTrainer
 
 __all__ = [
-    "TorchTrainer4Regression",
-    "TorchTrainer4Seq2Classification",
+    "calculator_for_classification",
+    "calculator_for_confusion_metrics",
+    "calc_binary_sem_seg_iou",
+    "calculator_for_regression",
     "TorchTrainer4UNetSemSeg",
+    "TorchTrainer"
 ]

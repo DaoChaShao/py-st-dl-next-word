@@ -3,10 +3,10 @@
 # @Time     :   2025/11/24 23:45
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   rnn_lstm_classification.py
+# @File     :   lstm4classification.py
 # @Desc     :   
 
-from torch import nn, cat
+from torch import nn, cat, zeros, device, randint
 
 WIDTH: int = 64
 
@@ -17,7 +17,8 @@ class LSTMRNNForClassification(nn.Module):
     def __init__(
             self,
             vocab_size: int, embedding_dim: int, hidden_size: int, num_layers: int,
-            num_classes: int, dropout_rate: float = 0.3
+            num_classes: int, dropout_rate: float = 0.3, bid: bool = True,
+            accelerator: str = "cpu"
     ):
         super().__init__()
         """ Initialise the CharsRNNModel class
@@ -27,16 +28,21 @@ class LSTMRNNForClassification(nn.Module):
         :param num_layers: number of RNN layers
         :param num_classes: number of output classes
         :param dropout_rate: dropout rate for regularization
+        :param bid: bidirectional flag
+        :param accelerator: accelerator for PyTorch
         """
         self._L = vocab_size  # Lexicon/Vocabulary size
-        self._N = embedding_dim  # Embedding dimension
+        self._H = embedding_dim  # Embedding dimension
         self._M = hidden_size  # Hidden dimension
         self._C = num_layers  # RNN layers count
+        self._factor = 2 if bid else 1
+        self._accelerator = accelerator
+        dropout = dropout_rate if self._C > 1 else 0.0
 
-        self._embed = nn.Embedding(self._L, self._N)
-        self._lstm = nn.LSTM(self._N, self._M, self._C, batch_first=True, dropout=dropout_rate, bidirectional=True)
+        self._embed = nn.Embedding(self._L, self._H)
+        self._lstm = nn.LSTM(self._H, self._M, self._C, batch_first=True, bidirectional=True, dropout=dropout)
         self._dropout = nn.Dropout(dropout_rate)
-        self._classifier = nn.Linear(self._M * 2, num_classes)
+        self._linear = nn.Linear(self._M * 2, num_classes)
 
         self._init_params()
 
@@ -48,36 +54,48 @@ class LSTMRNNForClassification(nn.Module):
             elif "bias" in name:
                 nn.init.zeros_(param)
 
+    def _init_hidden(self, batch_size):
+        """Initialize h0 and c0"""
+        shape = (self._C * self._factor, batch_size, self._M)
+        h0 = zeros(shape, device=device(self._accelerator))
+        c0 = zeros(shape, device=device(self._accelerator))
+        return h0, c0
+
     def forward(self, X):
         """ Forward pass of the model
         :param X: input tensor, shape (batch_size, sequence_length)
         :return: output tensor and new hidden state tensor, shapes (batch_size, sequence_length, vocab_size) and (num_layers, batch_size, hidden_dim)
         """
-        out = self._embed(X)
-        _, (hn, _) = self._lstm(out)
+        embeddings = self._embed(X)
 
-        forward_hn = hn[-2]  # [batch_size, hidden_size]
-        backward_hn = hn[-1]  # [batch_size, hidden_size]
-        out = cat([forward_hn, backward_hn], dim=1)  # [batch_size, hidden_size*2]
+        batches = X.size(0)
+        h0, c0 = self._init_hidden(batches)
+        output, (hidden, cell) = self._lstm(embeddings, (h0, c0))
 
-        out = self._dropout(out)
+        if self._factor == 2:
+            forward_hn = hidden[-2]  # [batch_size, hidden_size]
+            backward_hn = hidden[-1]  # [batch_size, hidden_size]
+            last_hidden = cat([forward_hn, backward_hn], dim=1)  # [batch_size, hidden_size*2]
+        else:
+            last_hidden = hidden[-1]
+
+        last_hidden = self._dropout(last_hidden)
         # Fully connected layer, shape (batch_size, num_classes)
-        out = self._classifier(out)
+        out = self._linear(last_hidden)
 
         return out
 
     def summary(self):
-        """ Print the model summary """
         print("=" * WIDTH)
         total_params = sum(p.numel() for p in self.parameters())
         trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
         print(f"Model Summary for {self.__class__.__name__}")
         print("-" * WIDTH)
         print(f"- Vocabulary size: {self._L}")
-        print(f"- Embedding dim: {self._N}")
+        print(f"- Embedding dim: {self._H}")
         print(f"- Hidden size: {self._M}")
         print(f"- Num layers: {self._C}")
-        print(f"- Output classes: {self._classifier.out_features}")
+        print(f"- Output classes: {self._linear.out_features}")
         print(f"- Total parameters: {total_params:,}")
         print(f"- Trainable parameters: {trainable_params:,}")
         print("=" * WIDTH)
@@ -85,4 +103,24 @@ class LSTMRNNForClassification(nn.Module):
 
 
 if __name__ == "__main__":
-    pass
+    vocab_size = 7459
+    batch_size = 16
+    seq_len = 111
+
+    model = LSTMRNNForClassification(
+        vocab_size=vocab_size,
+        embedding_dim=128,
+        hidden_size=256,
+        num_layers=2,
+        num_classes=vocab_size,
+        dropout_rate=0.5,
+        bid=True,
+        accelerator="cpu",
+    )
+    model.summary()
+
+    # 测试输入
+    X = randint(0, vocab_size, (batch_size, seq_len))
+    output = model(X)
+    print(f"Input Size: {X.shape}")
+    print(f"Output Size: {output.shape}")

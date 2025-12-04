@@ -10,6 +10,53 @@ from base64 import b64decode
 from openai import OpenAI
 
 
+def api_key_checker(api_key: str, category: str = "OpenAI") -> bool:
+    """ Check the API key format
+            - The length of an OpenAI API key is 164-digit key
+
+    :param api_key: enter the API key of the deepseek
+    :param category: the category of the API key
+    :return: True if the API key is valid
+    """
+    if api_key.startswith("sk-"):
+        if category == "OpenAI" and len(api_key) == 164:
+            return True
+        elif category == "DeepSeek" and len(api_key) == 35:
+            return True
+    return False
+
+
+class OpenAIEmbedder(object):
+
+    def __init__(self, api_key: str) -> None:
+        """ Initialize the OpenAI Embeddings API
+
+        :param api_key: str: The API key for the OpenAI API
+        """
+        self._api_key = api_key
+
+    def client(self, prompt: list, model: str, dimensions: int = 1024) -> list:
+        """ Initialize the OpenAI Embeddings API
+                - dimensions: 256、512、1024、1536
+
+        :param dimensions: int: The number of dimensions for the embedding
+        :param model: str: The model to use for the embedding
+        :param prompt: list: The input text to be embedded
+        :return: None
+        """
+        client = OpenAI(api_key=self._api_key, base_url="https://api.openai.com/v1")
+
+        response = client.embeddings.create(
+            input=prompt,
+            model=model,
+            dimensions=dimensions,
+            encoding_format="float",
+            timeout=3,
+        )
+
+        return [item.embedding for item in response.data]
+
+
 class OpenAITextCompleter(object):
     """ OpenAI Completer API Wrapper """
 

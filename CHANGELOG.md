@@ -5,6 +5,7 @@
 
 ### Features
 
+- add API key validation and OpenAI embedding client implementation ([29815f4](https://github.com///commit/29815f4f41feb8cc7eec28e33d6f30bf4b5c22b5))
 - rename unet_5layers_sem_seg.py to unet5layers4sem.py for consistency ([fd1078b](https://github.com///commit/fd1078b980aa1d92c8f50ad5c53c9661f2241631))
 - rename unet_4layers_sem_seg.py to unet4layers4sem.py for consistency ([7d28dc9](https://github.com///commit/7d28dc9cc9ed080e3dc19da87b18dde4dea638df))
 - add trainer4torch.py for comprehensive model training with logging and early stopping ([4d35e41](https://github.com///commit/4d35e41bd8eb2f96b473637069cf37b63a4d96cf))
@@ -101,6 +102,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent feature additions and changes ([f5a9361](https://github.com///commit/f5a93619748637ec0577f7780e3cab22f290ba79))
 - update CHANGELOG.md to reflect recent additions and changes ([a646613](https://github.com///commit/a646613ad0c6b68532e2a05afb29a2e297984cf3))
 - update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))
 - fix formatting in README.md for better readability ([8176479](https://github.com///commit/8176479eac7aef53144377c1c942de40c70545da))

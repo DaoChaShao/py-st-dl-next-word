@@ -3,7 +3,7 @@
 # @Time     :   2025/11/24 22:59
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   rnn_lstm_classification.py
+# @File     :   lstm4classification.py
 # @Desc     :   
 
 from torch import tensor, long, Tensor

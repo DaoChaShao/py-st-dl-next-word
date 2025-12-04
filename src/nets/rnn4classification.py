@@ -3,23 +3,22 @@
 # @Time     :   2025/12/4 01:48
 # @Author   :   Shawn
 # @Version  :   Version 0.1.0
-# @File     :   rnn_normal_classification.py
+# @File     :   rnn4classification.py
 # @Desc     :   
 
-from torch import nn, zeros, randint
-
-from src.configs.cfg_rnn import CONFIG4RNN
+from torch import nn, zeros, randint, device, cat
 
 WIDTH: int = 64
 
 
-class RNNForClassification(nn.Module):
-    """ AN RNN model for multi-class classification tasks using PyTorch """
+class NormalRNNForClassification(nn.Module):
+    """ A normal RNN model for multi-class classification tasks using PyTorch """
 
     def __init__(
             self,
             vocab_size: int, embedding_dim: int, hidden_size: int, num_layers: int,
             num_classes: int, dropout_rate: float = 0.3, bid: bool = True,
+            accelerator: str = "cpu"
     ):
         super().__init__()
         """ Initialise the CharsRNNModel class
@@ -30,15 +29,18 @@ class RNNForClassification(nn.Module):
         :param num_classes: number of output classes
         :param dropout_rate: dropout rate for regularization
         :param bid: whether the RNN is bidirectional
+        :param accelerator: accelerator for PyTorch
         """
         self._L = vocab_size  # Lexicon/Vocabulary size
         self._H = embedding_dim  # Embedding dimension
         self._M = hidden_size  # Hidden dimension
         self._C = num_layers  # RNN layers count
+        self._accelerator = accelerator
         self._factor = 2 if bid else 1
+        dropout = dropout_rate if self._C > 1 else 0.0
 
         self._embed = nn.Embedding(self._L, self._H)
-        self._rnn = nn.RNN(self._H, self._M, self._C, batch_first=True, bidirectional=bid, dropout=dropout_rate)
+        self._rnn = nn.RNN(self._H, self._M, self._C, batch_first=True, bidirectional=bid, dropout=dropout)
         self._linear = nn.Linear(self._M * self._factor, num_classes, bias=True)
 
         self._init_weights()
@@ -51,6 +53,11 @@ class RNNForClassification(nn.Module):
             elif "bias" in name:
                 nn.init.zeros_(param)
 
+    def _init_hidden(self, batch_size):
+        """ Initialize h0 with correct shape and device """
+        # h0 shape: (num_layers * num_directions, batch, hidden_size)
+        return zeros(self._C * self._factor, batch_size, self._M, device=device(self._accelerator))
+
     def forward(self, X):
         """ Forward pass of the model
         :param X: input tensor, shape (batch_size, sequence_length)
@@ -60,18 +67,22 @@ class RNNForClassification(nn.Module):
         # Embeddings: (batch, seq_len, embedding_dim)
         embeddings = self._embed(X)
 
-        # Initialise h0
-        batch_size = X.size(0)
-        h0 = zeros(self._C * self._factor, batch_size, self._M)
-        # Output: (batch, seq_len, hidden_size * factor)
-        # Hidden: (batch, num_layers * factor, hidden_size)
-        output, _ = self._rnn(embeddings, h0)
+        # Initialise h0: (num_layers * num_directions, batch, hidden_size)
+        batches = X.size(0)
+        h0 = self._init_hidden(batches)
+        # output: (batch, seq_len, hidden_size * directions)
+        # h_n:    (num_layers * directions, batch, hidden_size)
+        output, h_n = self._rnn(embeddings, h0)
 
-        # Get the last hidden state (batch, hidden_size * 2)
-        last_output_hidden = output[:, -1, :]
+        # Whether it is bidirectional or not
+        if self._factor == 2:
+            # last layer forward = h_n[-2], backward = h_n[-1]
+            last_hidden = cat([h_n[-2], h_n[-1]], dim=1)
+        else:
+            last_hidden = h_n[-1]  # Or last_hidden = output[:, -1, :]
 
-        # Classify: (batch, num_classes) Due to next words, num_classes = vocab_size
-        out = self._linear(last_output_hidden)
+        # Linear classify: (batch, num_classes) Due to next words, num_classes = vocab_size
+        out = self._linear(last_hidden)
 
         return out
 
@@ -99,7 +110,7 @@ if __name__ == "__main__":
     seq_len: int = 111
 
     # Initialise the model
-    model = RNNForClassification(
+    model = NormalRNNForClassification(
         vocab_size=vocab_size,
         embedding_dim=128,
         hidden_size=256,

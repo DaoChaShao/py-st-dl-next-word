@@ -18,10 +18,11 @@ Main Categories:
 + Standard4LayersUNetClassification: 4-layer UNet variant for semantic segmentation
 + Standard5LayersUNetForClassification: 5-layer UNet variant for semantic segmentation
 + LSTMRNNForClassification: Recurrent Neural Network for sequence classification tasks
++ NormalRNNForClassification: Standard RNN for sequence classification tasks
 
 Usage:
 + Direct import of models via:
-    - from src.nn import Standard4LayersUNetClassification, CONFIG4CNN, etc.
+    - from src.nn import Standard4LayersUNetClassification, LSTMRNNForClassification, etc.
 + Instantiate models with default or custom parameters as needed.
 ****************************************************************
 """
@@ -29,12 +30,14 @@ Usage:
 __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
-from .unet_4layers_sem_seg import Standard4LayersUNetClassification
-from .unet_5layers_sem_seg import Standard5LayersUNetForClassification
-from .rnn_lstm_classification import LSTMRNNForClassification
+from .lstm4classification import LSTMRNNForClassification
+from .rnn4classification import NormalRNNForClassification
+from .unet4layers4sem import Standard4LayersUNetClassification
+from .unet5layers4sem import Standard5LayersUNetForClassification
 
 __all__ = [
+    "LSTMRNNForClassification",
+    "NormalRNNForClassification",
     "Standard4LayersUNetClassification",
     "Standard5LayersUNetForClassification",
-    "LSTMRNNForClassification",
 ]

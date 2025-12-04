@@ -5,6 +5,20 @@
 
 ### Features
 
+- rename unet_5layers_sem_seg.py to unet5layers4sem.py for consistency ([fd1078b](https://github.com///commit/fd1078b980aa1d92c8f50ad5c53c9661f2241631))
+- rename unet_4layers_sem_seg.py to unet4layers4sem.py for consistency ([7d28dc9](https://github.com///commit/7d28dc9cc9ed080e3dc19da87b18dde4dea638df))
+- add trainer4torch.py for comprehensive model training with logging and early stopping ([4d35e41](https://github.com///commit/4d35e41bd8eb2f96b473637069cf37b63a4d96cf))
+- rename unet_sem_seg.py to trainer4sem_seg.py and refactor training logic with enhanced logging and metrics ([379c960](https://github.com///commit/379c96013abee3ad320877151a60b695defbf372))
+- rename seq_classification.py to lstm4classification.py ([0f7558e](https://github.com///commit/0f7558eebb6652356703041c2bb073c5df07ab5f))
+- rename rnn_normal_classification.py to rnn4classification.py and enhance RNN model with hidden state initialization and accelerator parameter ([3a53464](https://github.com///commit/3a53464f8bea10cc4e06ed0ae0fa6534bef34ba5))
+- delete mpl_regression.py because a new comprehensive trainer4torch.py replacing it ([a12b228](https://github.com///commit/a12b228242f1cef00399685ba5f193247520c2b1))
+- rename rnn_lstm_classification.py to lstm4classification.py and enhance LSTM model with bidirectional support and accelerator parameter ([ff7e1d3](https://github.com///commit/ff7e1d37f138534d736d0e67af13c361a39e6eb0))
+- add calculator_for_regression function for evaluating regression performance metrics ([3c9c31a](https://github.com///commit/3c9c31ab70134bc02fdbbff7294365860e9e83ce))
+- add calc_binary_sem_seg_iou function for binary IoU calculation in semantic segmentation ([34e62f1](https://github.com///commit/34e62f19f36d76a75113f1d54c16abb6b2519291))
+- add calculator_for_confusion_metrics function for evaluating classification performance ([33c5df7](https://github.com///commit/33c5df7859c7ba696b9ef565470dd37a6488f5fa))
+- add calculator_for_classification function for performance metrics ([04b1a95](https://github.com///commit/04b1a956ccdd8b06d8059edb56c5a071332b1673))
+- update __init__.py to enhance module description and add metric calculators ([719c801](https://github.com///commit/719c8015bb14919960e7d5511c0913ba2e19e614))
+- add NormalRNNForClassification model and update imports in __init__.py ([c099efc](https://github.com///commit/c099efc1cb082c5d302e4aa091495f5ae2a16548))
 - add dictionary.json ([e13f6a0](https://github.com///commit/e13f6a0fa8f96095974d35720574e6a15e9b80e0))
 - add sqlite3.db ([c5bc439](https://github.com///commit/c5bc4397f9c41e09536a415a0a0574fbdd0a1cb5))
 - enhance data splitting functions and JSON handling in stats.py ([946df5c](https://github.com///commit/946df5cdfd0568273b17cf2148f60173539a5a1b))
@@ -87,7 +101,7 @@
 
 ### Docs
 
-- update CHANGELOG.md to reflect recent additions and changes ([38508da](https://github.com///commit/38508daf86df96e478538c0a13f6311f1d7e5fae))
+- update CHANGELOG.md to reflect recent additions and changes ([a646613](https://github.com///commit/a646613ad0c6b68532e2a05afb29a2e297984cf3))
 - update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))
 - fix formatting in README.md for better readability ([8176479](https://github.com///commit/8176479eac7aef53144377c1c942de40c70545da))
 - update CHANGELOG.md to include new features and documentation updates ([d9ad30e](https://github.com///commit/d9ad30e0db74c0e466efe828a619030e2165202f))

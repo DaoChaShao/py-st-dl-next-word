@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths, Database
+from src.configs.cfg_base import Database, FilePaths, Punctuations
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -28,6 +28,7 @@ class Configuration4RNN:
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
     PARAMETERS: RNNParams = field(default_factory=RNNParams)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG4RNN = Configuration4RNN()

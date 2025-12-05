@@ -22,8 +22,8 @@ class FilePaths:
     LOGS: Path = BASE_DIR / "logs/"
     SAVED_NET: Path = BASE_DIR / "models/model.pth"
     SPACY_MODEL_EN: Path = BASE_DIR / "models/spacy/en_core_web_md"
-    SPACY_MODEL_ZH: Path = BASE_DIR / "models/spacy/zh_core_web_md"
-    SQLITE: Path = BASE_DIR / "data/sqlite3.db"
+    SPACY_MODEL_CN: Path = BASE_DIR / "models/spacy/zh_core_web_md"
+    SQLITE: Path = BASE_DIR / "data/processed/sqlite3.db"
 
 
 @dataclass
@@ -37,9 +37,25 @@ class Database:
 
 
 @dataclass
+class Punctuations:
+    CN = [
+        "，", "。", "？", "！", "、", "；", "：", "「", "」", "『", "』",
+        "《", "》", "（", "）", "【", "】", "｛", "｝", "－", "～", "·",
+        "…", "——", "〝", "〞", "＂", "＇", "＇", "‘", "’", "“", "”",
+        "〈", "〉", "〖", "〗", "〔", "〕", "〘", "〙", "〚", "〛"
+    ]
+    EN = [
+        ",", ".", "?", "!", ";", ":", "'", '"', "(", ")", "[", "]",
+        "{", "}", "-", "~", "`", "@", "#", "$", "%", "^", "&", "*",
+        "_", "+", "=", "<", ">", "/", "\\", "|"
+    ]
+
+
+@dataclass
 class Config:
-    FILEPATHS: FilePaths = field(default_factory=FilePaths)
     DATABASE: Database = field(default_factory=Database)
+    FILEPATHS: FilePaths = field(default_factory=FilePaths)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG = Config()

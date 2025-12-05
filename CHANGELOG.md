@@ -1,10 +1,37 @@
 <!-- insertion marker -->
 <a name="0.1.0"></a>
 
-## [0.1.0](https://github.com///compare/ce6dff8cae32df74d3531de065508043f04da989...0.1.0) (2025-12-04)
+## [0.1.0](https://github.com///compare/ce6dff8cae32df74d3531de065508043f04da989...0.1.0) (2025-12-05)
 
 ### Features
 
+- add model.pth for next word prediction ([5c3c45e](https://github.com///commit/5c3c45ec7a686030055fb47ec0aeb686f2f63879))
+- update uv.lock to include new dependencies for tensorboard and grpcio ([4aa4332](https://github.com///commit/4aa43326d403ac35010bcffef25ebcdcc056cb95))
+- enhance evaluation metrics calculation with confusion matrix support ([8705b07](https://github.com///commit/8705b077e99b7e22cf54e9f46f12684652406ddc))
+- optimize THULAC initialization for segmentation and POS tagging ([7bd4bf1](https://github.com///commit/7bd4bf1855a9960a3a56f7b0699c061237ee652d))
+- refactor sqlite3.db ([7942c99](https://github.com///commit/7942c999c1d7e2198b47988c491c75cbbc6608c8))
+- enhance SQLiteIII class with context management and additional properties ([80e2646](https://github.com///commit/80e26467d8550c91b9c9e97bfa00c99e62a15825))
+- update requirements.txt to include tensorboard and its dependencies ([1cb7197](https://github.com///commit/1cb7197c84fe374499219fe3f04a60f5dad12dca))
+- add tensorboard dependency for enhanced logging capabilities ([4310d2e](https://github.com///commit/4310d2e780c0e488618c421df76b345cd3866cc1))
+- enhance tensor conversion and add TensorLogWriter for logging ([069feb7](https://github.com///commit/069feb7c744c09c117c1782517dbc0b72325e72e))
+- update data processing to use CONFIG4DL for punctuation constants ([1445d29](https://github.com///commit/1445d29f33b02baf4c1cc7cc059bdd530db09b75))
+- implement data preparation function with TorchDataLoader integration ([76b62b9](https://github.com///commit/76b62b9b76eb50afbccbd0077c8a767718b47df4))
+- implement main function for next word prediction using RNN model ([54074e3](https://github.com///commit/54074e3576d6f8dbb834b049b57f2fc5330a1c6e))
+- add command line argument parser for training hyperparameters ([c3ae2ae](https://github.com///commit/c3ae2ae0e5e34537ffd8f4962436896952998405))
+- refactor language model loading and tokenization for SpaCy ([967b896](https://github.com///commit/967b896423ee8c226f3217cf82be95bb60c34f84))
+- implement main function for RNN model training and setup ([f503366](https://github.com///commit/f5033666d19dd83665c08fb56cf168b3dceff4b5))
+- enhance TorchDataLoader to include workers parameter and update shuffle handling ([3fe4de8](https://github.com///commit/3fe4de8ffedfd111ed1f2d0d1771b3e03294f343))
+- update cfg_unet to include Punctuations class in configuration ([05ef455](https://github.com///commit/05ef45573c1aeb52df38ebc0f68402026475e0d9))
+- update cfg_rnn to include Punctuations class in configuration ([1e68e7c](https://github.com///commit/1e68e7c2f86aa182b14783954a1dae41c9d0e2d1))
+- update cfg_mlp to include Punctuations class in configuration ([dd596ce](https://github.com///commit/dd596ceae77a16e23b5eeb742e92644433836e83))
+- update cfg_cnn to include Punctuations class in configuration ([1731d78](https://github.com///commit/1731d780b06890c0a25c9901d6e50f69db03bd44))
+- update cfg_base4dl to include Punctuations class and add WORKERS parameter ([5e12bc8](https://github.com///commit/5e12bc86f0968fe7cdadb50a60a5e73e7ae77220))
+- update cfg_base to include Chinese punctuation class and modify database path ([4054ce0](https://github.com///commit/4054ce03fb7f9210cf9362a085bf560f06e26506))
+- update calculator_for_regression to accept lists and convert to ndarray ([9705bbd](https://github.com///commit/9705bbd87829110b98f585a61504cd9d05287837))
+- modify calculator_for_confusion_metrics to accept lists and convert to ndarray ([3b46445](https://github.com///commit/3b46445aa1c9b0f743765b0df3d42ed704b20f6e))
+- update calculator_for_classification to accept lists and convert to ndarray ([6e619f7](https://github.com///commit/6e619f70a633c3beb42856989cd14a19d04eb8d7))
+- update __init__.py exports to include item2tensor and TensorLogWriter ([13b7094](https://github.com///commit/13b709443b66959772eae647851ce83c73966a1c))
+- add parser module and update __init__.py exports ([6ea1e60](https://github.com///commit/6ea1e609d3a50f0635209765e6757782eb704567))
 - add API key validation and OpenAI embedding client implementation ([29815f4](https://github.com///commit/29815f4f41feb8cc7eec28e33d6f30bf4b5c22b5))
 - rename unet_5layers_sem_seg.py to unet5layers4sem.py for consistency ([fd1078b](https://github.com///commit/fd1078b980aa1d92c8f50ad5c53c9661f2241631))
 - rename unet_4layers_sem_seg.py to unet4layers4sem.py for consistency ([7d28dc9](https://github.com///commit/7d28dc9cc9ed080e3dc19da87b18dde4dea638df))
@@ -102,6 +129,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to reflect recent feature additions ([fee9c4d](https://github.com///commit/fee9c4dd2c0ddd63655dab98e2b19bf1cde59247))
 - update CHANGELOG.md to include recent feature additions and changes ([f5a9361](https://github.com///commit/f5a93619748637ec0577f7780e3cab22f290ba79))
 - update CHANGELOG.md to reflect recent additions and changes ([a646613](https://github.com///commit/a646613ad0c6b68532e2a05afb29a2e297984cf3))
 - update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))

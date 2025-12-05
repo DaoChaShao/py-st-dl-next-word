@@ -20,6 +20,7 @@ Main Categories:
 + cfg_mlp        : MLP/NLP-specific parameters (CONFIG4MLP, NLPParams)
 + cfg_rnn        : RNN-specific parameters (CONFIG4RNN, RNNParams)
 + cfg_unet       : UNet-specific parameters (CONFIG4UNET, UNetParams)
++ parser         : Parser module
 
 Usage:
 + Access default configuration: e.g., CONFIG4CNN.CNN_PARAMS.OUT_CHANNELS
@@ -32,18 +33,20 @@ Usage:
 __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
-from .cfg_base import CONFIG, Config, FilePaths
+from .cfg_base import CONFIG, Config, Database, FilePaths, Punctuations
 from .cfg_base4dl import CONFIG4DL, Config4DL, DataPreprocessor, Hyperparameters
 from .cfg_cnn import CONFIG4CNN, Configuration4CNN, CNNParams
 from .cfg_mlp import CONFIG4MLP, Configuration4MLP, MLPParams
 from .cfg_rnn import CONFIG4RNN, Configuration4RNN, RNNParams
 from .cfg_unet import CONFIG4UNET, Configuration4UNet, UNetParams
+from .parser import set_argument_parser
 
 __all__ = [
-    "CONFIG", "Config", "FilePaths",
+    "CONFIG", "Config", "Database", "FilePaths", "Punctuations",
     "CONFIG4DL", "Config4DL", "DataPreprocessor", "Hyperparameters",
     "CONFIG4CNN", "Configuration4CNN", "CNNParams",
     "CONFIG4MLP", "Configuration4MLP", "MLPParams",
     "CONFIG4RNN", "Configuration4RNN", "RNNParams",
     "CONFIG4UNET", "Configuration4UNet", "UNetParams",
+    "set_argument_parser"
 ]

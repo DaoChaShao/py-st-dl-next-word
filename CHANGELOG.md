@@ -136,6 +136,7 @@
 
 ### Bug Fixes
 
+- adjust amount initialization and enable temperature input ([bb3d872](https://github.com///commit/bb3d872677c2f1ec3da42c81393bad5c1dc530eb))
 - update tokenization progress messages in predictor.py for clarity ([b886209](https://github.com///commit/b886209c5d31f869be1ccddd9a07895183043783))
 - update help command references in parser.py to use trainer.py ([a5ebbea](https://github.com///commit/a5ebbeafd0c354698cef88efb27c4bd3510c9e69))
 - update timestamp format in logger initialization ([8aa8528](https://github.com///commit/8aa8528312a77bdc9ad72f3c28f56191d787a333))
@@ -147,6 +148,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to consolidate recent documentation updates and feature additions ([ed7e5a7](https://github.com///commit/ed7e5a7e170c0a2df84ffd3dc6cf0c2af0cefd72))
 - add quick start section to README.zh-CN.md for easier application setup ([6b0f590](https://github.com///commit/6b0f5901a645293a8ff37a1c5c55c67eed65c219))
 - add quick start guide to README.md for easier application setup ([009e0a7](https://github.com///commit/009e0a719bfa4a92702ab5df9c717f2cdf78575b))
 - update CHANGELOG.md to include recent feature additions and bug fixes ([dba7837](https://github.com///commit/dba7837232bfda980c73e2bf596e2d651359446b))

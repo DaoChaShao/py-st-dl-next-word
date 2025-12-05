@@ -15,10 +15,9 @@ from tqdm import tqdm
 
 from src.configs.cfg_base import CONFIG
 from src.utils.decorator import timer
-from src.utils.THU import cut_only
 
-nlp_en = load(CONFIG.FILEPATHS.SPACY_MODEL_EN)
-nlp_zh = load(CONFIG.FILEPATHS.SPACY_MODEL_ZH)
+spacy4cn = None
+spacy4en = None
 
 
 # @timer
@@ -123,18 +122,33 @@ def spacy_single_tokeniser(content: str, lang: str) -> list[str]:
     :param lang: language code for the text (e.g., 'en' for English, 'zh' for Chinese)
     :return: list of tokens
     """
-    print(nlp_zh.pipe_names)
-    print(nlp_en.pipe_names)
+    nlp = None
+
+    global spacy4cn, spacy4en
+    match lang:
+        case "cn":
+            if spacy4cn is None:
+                spacy4cn = load(CONFIG.FILEPATHS.SPACY_MODEL_CN)
+                print("SpaCy Chinese Model initialized.")
+                print(f"{spacy4cn.pipe_names} loaded.")
+            nlp = spacy4cn
+        case "en":
+            if spacy4en is None:
+                spacy4en = load(CONFIG.FILEPATHS.SPACY_MODEL_EN)
+                print(f"SpaCy English Model initialized.")
+                print(f"{spacy4en.pipe_names} loaded.")
+            nlp = spacy4en
+        case _:
+            raise ValueError(f"Unsupported language: {lang}")
 
     words: list[str] = []
+    doc = nlp(content)
 
     match lang:
-        case "en":
-            doc = nlp_en(content)
-            words = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
-        case "zh":
-            doc = nlp_zh(content)
+        case "cn":
             words = [token.text for token in doc if token.text.strip() and not token.is_punct and not token.is_stop]
+        case "en":
+            words = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
         case _:
             raise ValueError(f"Unsupported language: {lang}")
 
@@ -151,27 +165,40 @@ def spacy_batch_tokeniser(contents: list[str], lang: str = "en", batches: int = 
     :param batches: number of texts to process in each batch
     :return: list of tokenized texts
     """
-    print(nlp_zh.pipe_names)
-    print(nlp_en.pipe_names)
+    nlp = None
 
-    docs = None
+    global spacy4cn, spacy4en
     match lang:
+        case "cn":
+            if spacy4cn is None:
+                spacy4cn = load(CONFIG.FILEPATHS.SPACY_MODEL_CN)
+                print("SpaCy Chinese Model initialized.")
+                print(f"{spacy4cn.pipe_names} loaded.")
+            nlp = spacy4cn
         case "en":
-            docs = nlp_en.pipe(contents, batch_size=batches)
-        case "zh":
-            docs = nlp_zh.pipe(contents, batch_size=batches)
+            if spacy4en is None:
+                spacy4en = load(CONFIG.FILEPATHS.SPACY_MODEL_EN)
+                print(f"SpaCy English Model initialized.")
+                print(f"{spacy4en.pipe_names} loaded.")
+            nlp = spacy4en
         case _:
             raise ValueError(f"Unsupported language: {lang}")
 
     words: list[list[str]] = []
-    for doc in tqdm(docs, total=len(contents), desc="SpaCy Batch Tokeniser"):
-        if lang == "en":
-            tokens = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
-        else:
-            tokens = [token.text for token in doc if token.text.strip() and not token.is_punct and not token.is_stop]
+    tokens: list[str] = []
+    for doc in tqdm(nlp.pipe(contents, batch_size=batches), total=len(contents), desc="SpaCy Batch Tokeniser"):
+        match lang:
+            case "cn":
+                tokens = [
+                    token.text for token in doc if token.text.strip() and not token.is_punct and not token.is_stop
+                ]
+            case "en":
+                tokens = [token.lemma_.lower() for token in doc if token.lemma_.isalpha() and not token.is_stop]
+            case _:
+                raise ValueError(f"Unsupported language: {lang}")
         words.append(tokens)
 
-    print(f"Average length is {sum(len(w) for w in words) / len(words):.1f} words per content.")
+    print(f"Average length is {sum(len(w) for w in words) / len(words):.2f} words per content.")
 
     return words
 

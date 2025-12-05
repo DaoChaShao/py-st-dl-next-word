@@ -147,9 +147,11 @@
 
 ### Docs
 
+- add quick start section to README.zh-CN.md for easier application setup ([6b0f590](https://github.com///commit/6b0f5901a645293a8ff37a1c5c55c67eed65c219))
+- add quick start guide to README.md for easier application setup ([009e0a7](https://github.com///commit/009e0a719bfa4a92702ab5df9c717f2cdf78575b))
+- update CHANGELOG.md to include recent feature additions and bug fixes ([dba7837](https://github.com///commit/dba7837232bfda980c73e2bf596e2d651359446b))
 - update README.zh-CN.md to enhance feature descriptions and add detailed functionality overview ([1872f23](https://github.com///commit/1872f2380f616d3c5bc0c2b3148cda987b175bac))
 - update README.md to enhance feature descriptions and add detailed functionality overview ([00f1ff6](https://github.com///commit/00f1ff669c0179eb67a90d85ecd02707e72378d6))
-- update CHANGELOG.md to include recent feature additions and bug fixes ([7e8c8d8](https://github.com///commit/7e8c8d89b821ffbb1fb0b27fc42a4bc8d6dc0930))
 - update CHANGELOG.md to include recent bug fix for timestamp format in logger initialization ([0c2647d](https://github.com///commit/0c2647d4f47089968e967348883a893a40e03e2f))
 - add train_at_20251205_02-39-07-THULAC.log ([9f27b20](https://github.com///commit/9f27b208cec2000f0f94497f3d954f1f2717f603))
 - update CHANGELOG.md to reflect recent feature additions ([2f9dcbc](https://github.com///commit/2f9dcbca8adb0061e48d42cd58f7f4e6abd783dd))

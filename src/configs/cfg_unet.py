@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths, Database
+from src.configs.cfg_base import Database, FilePaths, Punctuations
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -25,6 +25,7 @@ class Configuration4UNet:
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
     PARAMETERS: UNetParams = field(default_factory=UNetParams)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG4UNET = Configuration4UNet()

@@ -6,16 +6,19 @@
 # @File     :   calc4classification.py
 # @Desc     :   
 
-from numpy import ndarray
+from numpy import ndarray, array
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 
-def calculator_for_classification(outputs: ndarray, targets: ndarray) -> dict[str, float]:
+def calculator_for_classification(outputs: list[int], targets: list[int]) -> dict[str, float]:
     """ calculate accuracy, precision, recall, f1 score based on outputs and targets
     :param outputs: the predicted outputs
     :param targets: the ground truth outputs
     :return: dict of outputs and targets
     """
+    outputs: ndarray = array(outputs)
+    targets: ndarray = array(targets)
+
     dps: int = 4
 
     return {

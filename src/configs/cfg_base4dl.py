@@ -9,7 +9,7 @@
 from dataclasses import dataclass, field
 from torch import cuda
 
-from src.configs.cfg_base import FilePaths, Database
+from src.configs.cfg_base import Database, FilePaths, Punctuations
 
 
 @dataclass
@@ -23,14 +23,13 @@ class DataPreprocessor:
     RANDOMNESS: int = 27
     SHUFFLE: bool = True
     TEST_SIZE: float = 0.2
+    WORKERS: int = 4
 
 
 @dataclass
 class Hyperparameters:
     ACCELERATOR: str = "cuda" if cuda.is_available() else "cpu"
-    # ALPHA: float = 1e-4
     DECAY: float = 1e-4
-    # EPOCHS: int = 100
 
 
 @dataclass
@@ -39,6 +38,7 @@ class Config4DL:
     FILEPATHS: FilePaths = field(default_factory=FilePaths)
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG4DL = Config4DL()

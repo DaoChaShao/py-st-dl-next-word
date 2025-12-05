@@ -21,26 +21,14 @@ from src.utils.stats import create_full_data_split, save_json
 from src.utils.SQL import SQLiteIII
 from src.utils.THU import cut_only
 
-PUNCTUATIONS_CN = [
-    "，", "。", "？", "！", "、", "；", "：", "「", "」", "『", "』",
-    "《", "》", "（", "）", "【", "】", "｛", "｝", "－", "～", "·",
-    "…", "——", "〝", "〞", "＂", "＇", "＇", "‘", "’", "“", "”",
-    "〈", "〉", "〖", "〗", "〔", "〕", "〘", "〙", "〚", "〛"
-]
-
-PUNCTUATIONS_EN = [
-    ",", ".", "?", "!", ";", ":", "'", '"', "(", ")", "[", "]",
-    "{", "}", "-", "~", "`", "@", "#", "$", "%", "^", "&", "*",
-    "_", "+", "=", "<", ">", "/", "\\", "|"
-]
-
 
 def process_data() -> tuple[Dataset, Dataset, int]:
     """ Main Function """
     with Timer("Process Data"):
         # Get the data from the database
         sqlite = SQLiteIII(CONFIG4DL.DATABASE.TABLE, CONFIG4DL.DATABASE.COL)
-        data = sqlite.get_all()
+        sqlite.connect()
+        data = sqlite.get_all_data()
         sqlite.close()
         # print(len(data))
         # print()
@@ -55,12 +43,12 @@ def process_data() -> tuple[Dataset, Dataset, int]:
         if amount is None:
             for line in tqdm(sentences4train, total=len(sentences4train), desc="Tokenizing Train Data"):
                 for item in cut_only(line):
-                    if item in PUNCTUATIONS_CN or match(r"^[\u4e00-\u9fff]+$", item):
+                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items4train.append(item)
         else:
             for line in tqdm(sentences4train[:amount], total=amount, desc="Tokenizing Train Data"):
                 for item in cut_only(line):
-                    if item in PUNCTUATIONS_CN or match(r"^[\u4e00-\u9fff]+$", item):
+                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items4train.append(item)
         # print(items4train)
         tokens, _ = count_frequency(items4train, top_k=10, freq_threshold=3)
@@ -103,12 +91,12 @@ def process_data() -> tuple[Dataset, Dataset, int]:
         if amount is None:
             for line in tqdm(sentences4valid, total=len(sentences4valid), desc="Tokenizing Valid Data"):
                 for item in cut_only(line):
-                    if item in PUNCTUATIONS_CN or match(r"^[\u4e00-\u9fff]+$", item):
+                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items4valid.append(item)
         else:
             for line in tqdm(sentences4valid[:amount], total=amount, desc="Tokenizing Valid Data"):
                 for item in cut_only(line):
-                    if item in PUNCTUATIONS_CN or match(r"^[\u4e00-\u9fff]+$", item):
+                    if item in CONFIG4DL.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items4valid.append(item)
         # print(items4train)
         check_vocab_coverage(items4valid, dictionary)

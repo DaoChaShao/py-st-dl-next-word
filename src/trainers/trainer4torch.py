@@ -13,6 +13,8 @@ from numpy import ndarray
 from torch import nn, optim, no_grad, save, device
 
 from src.dataloaders import TorchDataLoader
+from src.trainers.calc4classification import calculator_for_classification
+from src.trainers.calc4cm import calculator_for_confusion_metrics
 from src.utils.logger import record_log
 from src.utils.PT import get_device
 
@@ -71,12 +73,10 @@ class TorchTrainer(QObject):
         self._model.eval()
 
         _loss: float = 0.0
-        _correct: float = 0.0
         _total: float = 0.0
 
-        _results: list[ndarray] = []
-        _targets: list[ndarray] = []
-        _metrics: dict[str, float] = {}
+        _results: list[int] = []
+        _targets: list[int] = []
         with no_grad():
             for features, labels in dataloader:
                 features, labels = features.to(device(self._accelerator)), labels.to(device(self._accelerator))
@@ -89,10 +89,15 @@ class TorchTrainer(QObject):
 
                 loss = self._criterion(outputs, labels)
                 _loss += loss.item() * features.size(0)
-                _total += labels.numel()
+                _total += features.size(0)
 
-                _results.extend(outputs.argmax(dim=1).cpu().numpy())
-                _targets.extend(labels.cpu().numpy())
+                _results.extend(outputs.argmax(dim=1).cpu().tolist())
+                _targets.extend(labels.cpu().tolist())
+
+        _metrics: dict[str, float] = {
+            **calculator_for_classification(_results, _targets),
+            **calculator_for_confusion_metrics(_results, _targets)
+        }
 
         return _loss / _total, _metrics
 
@@ -136,8 +141,10 @@ class TorchTrainer(QObject):
             if valid_loss < _best_valid_loss - _min_delta:
                 _patience_counter = 0
                 _best_valid_loss = valid_loss
-                save(self._model.state_dict(), model_save_path)
-                print(f"√ Model's parameters saved to {model_save_path}\n")
+
+                if model_save_path:
+                    save(self._model.state_dict(), model_save_path)
+                    print(f"√ Model's parameters saved to {model_save_path}\n")
             else:
                 _patience_counter += 1
                 print(f"× No improvement [{_patience_counter}/{_patience}]\n")

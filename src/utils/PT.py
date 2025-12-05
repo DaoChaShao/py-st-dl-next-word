@@ -6,11 +6,14 @@
 # @File     :   PT.py
 # @Desc     :   
 
-from numpy import ndarray, array, random as np_random
+from datetime import datetime
+from numpy import ndarray, array, random as np_random, number
 from pandas import DataFrame
+from pathlib import Path
 from random import seed as rnd_seed, getstate, setstate
-from torch import (cuda, backends, Tensor, tensor, float32, int64, long,
+from torch import (cuda, backends, Tensor, tensor, float32, long,
                    manual_seed, get_rng_state, set_rng_state)
+from torch.utils.tensorboard import SummaryWriter
 
 from src.utils.decorator import timer
 
@@ -157,12 +160,14 @@ def get_device(accelerator: str = "auto", cuda_mode: int = 0) -> str:
             return "cpu"
 
 
-def series2tensor(
-        data: DataFrame | ndarray | list, label: bool = False, accelerator: str = "cpu", is_grad: bool = False
+def item2tensor(
+        data: DataFrame | ndarray | list | int | float | number,
+        embed: bool = False,
+        accelerator: str = "cpu", is_grad: bool = False
 ) -> Tensor:
     """ Convert data to a PyTorch tensor
     :param data: data to be converted
-    :param label: whether the data is a label (integer type) or feature (float type)
+    :param embed: whether the data is embedded or not
     :param accelerator: the target device string ("cpu", "cuda", "mps")
     :param is_grad: whether the tensor requires gradient computation
     :return: the converted PyTorch tensor
@@ -170,14 +175,18 @@ def series2tensor(
     # Convert DataFrame or list to ndarray
     if isinstance(data, DataFrame):
         arr = data.values
-    elif isinstance(data, list):
-        arr = array(data, dtype=float if not label else int)
-    else:
+    elif isinstance(data, ndarray):
         arr = data
+    elif isinstance(data, list):
+        arr = array(data, dtype=float)
+    elif isinstance(data, (int, float, number)):
+        arr = array([data], dtype=float)
+    else:
+        raise TypeError(f"Unsupported data type: {type(data)}")
 
     # Convert to tensor with appropriate dtype
-    if label:
-        t = tensor(arr, dtype=int64, device=accelerator, requires_grad=is_grad)
+    if embed:
+        t = tensor(arr, dtype=long, device=accelerator, requires_grad=is_grad)
     else:
         t = tensor(arr, dtype=float32, device=accelerator, requires_grad=is_grad)
 
@@ -202,6 +211,25 @@ def sequences2tensors(sequences: list[list[int]], max_len: int) -> Tensor:
         padded.append(new)
 
     return tensor(padded, dtype=long)
+
+
+class TensorLogWriter:
+    """ Tensor log writer """
+
+    def __init__(self, log_dir: Path, log_name: str | None) -> None:
+        if not log_dir.exists():
+            raise FileNotFoundError(f"{log_dir} not found.")
+
+        self._log_dir: Path = log_dir
+        self._exp_name = datetime.now().strftime("%Y-%m-%d-%H-%M-%S") if log_name is None else log_name
+
+    def __enter__(self):
+        self._writer = SummaryWriter(f"{self._log_dir}/{self._exp_name}")
+        return self._writer
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self._writer:
+            self._writer.close()
 
 
 if __name__ == "__main__":

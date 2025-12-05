@@ -23,7 +23,7 @@ from src.utils.THU import cut_only
 
 def main() -> None:
     """ Main Function """
-    # Get the data from the database
+    # Get the data from the database: Method II
     with SQLiteIII(CONFIG4RNN.DATABASE.TABLE, CONFIG4RNN.DATABASE.COL) as db:
         data = db.get_all_data()
         print(len(data))
@@ -34,8 +34,8 @@ def main() -> None:
         _, _, sentences = create_full_data_split(data)
 
         # Set a dictionary
-        amount: int | None = 100
-        # amount: int | None = None
+        # amount: int | None = 100
+        amount: int | None = None
         items: list[str] = []
         if amount is None:
             for line in tqdm(sentences, total=len(sentences), desc="Tokenizing Train Data"):
@@ -53,10 +53,11 @@ def main() -> None:
         # Load the dictionary and convert
         dic: Path = Path(CONFIG4RNN.FILEPATHS.DICTIONARY)
         dictionary: dict[str, int] = load_json(dic)
+        reversed_dictionary: dict = {idx: word for word, idx in dictionary.items()}
 
         # Convert the whole sentence to sequence using dictionary
-        UNK: str = "<UNK>"
-        sequence: list[int] = [dictionary.get(item, UNK) for item in items]
+        UNK_IDX: int = dictionary["<UNK>"]
+        sequence: list[int] = [dictionary.get(item, UNK_IDX) for item in items]
         # print(sequence)
         # print()
 
@@ -119,7 +120,6 @@ def main() -> None:
 
                 # Get the relevant words
                 print("".join(items[idx: idx + CONFIG4RNN.PREPROCESSOR.MAX_SEQUENCE_LEN]))
-                reversed_dictionary: dict = {idx: word for word, idx in dictionary.items()}
                 pred_words: list[str] = [reversed_dictionary.get(idx) for idx in indices.squeeze().tolist()]
                 print(pred_words)
                 print()

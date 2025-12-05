@@ -5,6 +5,18 @@
 
 ### Features
 
+- add trainer.py for RNN model training and evaluation ([17a82b3](https://github.com///commit/17a82b360e14ecc6635cfdac9fdef062769863e7))
+- add stqdm and watchdog packages to uv.lock for enhanced functionality ([056c943](https://github.com///commit/056c943e9d3da48b4bdab75a8c6fa79b9a103343))
+- add watchdog dependency to requirements.txt for improved file monitoring ([029ce08](https://github.com///commit/029ce08b97111fd03e05dd6f1dbe60bcf105abd5))
+- add new dependencies for stqdm and watchdog in pyproject.toml ([c19d691](https://github.com///commit/c19d691546a1317677c2c2f06ca3b7250e2c8801))
+- add prediction.py for Next Word Prediction app functionality and model integration ([0e07472](https://github.com///commit/0e0747296705dc78bce8c2294861557ceed108fa))
+- refactor main.py to integrate page configuration and navigation for Next Word Prediction app ([fd03384](https://github.com///commit/fd03384377bebc86b70f9d36e67b841f37e03e5c))
+- add layout.py for page configuration and sidebar navigation in Next Word Prediction app ([0ef9f80](https://github.com///commit/0ef9f809ebf9b66f43e5dbc097cdcfbb6ff26466))
+- add home.py for the Next Word Prediction application introduction and functionality overview ([ab92fd0](https://github.com///commit/ab92fd0597d2b7f0eb1935ac227fc52625541550))
+- create __init__.py for Next Word Prediction app package structure and module exposure ([0b7f9b9](https://github.com///commit/0b7f9b97c5f2555d9f322e5443d48cdc4a93abe3))
+- add __init__.py for page configuration and multi-page navigation in Next Word Prediction app ([7f28d68](https://github.com///commit/7f28d681e80310ea30b1f983b78a4f8b43fef4f6))
+- add __init__.py for multi-page structure in Next Word Prediction app ([08fcc67](https://github.com///commit/08fcc67a898f42c2ab5db888d418738f8acc7a6c))
+- add .gitignore to exclude Python-generated files and IDE-specific directories ([34eda62](https://github.com///commit/34eda6267b8bcca5f66acf49aef43281e6fd7c0a))
 - implement data preprocessing and model evaluation in evaluator.py ([7f838a5](https://github.com///commit/7f838a5ed81f5ef1414e6505b1a47ea49b9eeba7))
 - add configuration types for sequence tasks and language support ([db34941](https://github.com///commit/db34941a12316875d899c962f8bb0738d5fe2062))
 - add necessary options functionality and import types in __init__.py ([0a7b7e6](https://github.com///commit/0a7b7e67684f6bc4bc3d45067b70308244ae30d7))
@@ -124,6 +136,8 @@
 
 ### Bug Fixes
 
+- update tokenization progress messages in predictor.py for clarity ([b886209](https://github.com///commit/b886209c5d31f869be1ccddd9a07895183043783))
+- update help command references in parser.py to use trainer.py ([a5ebbea](https://github.com///commit/a5ebbeafd0c354698cef88efb27c4bd3510c9e69))
 - update timestamp format in logger initialization ([8aa8528](https://github.com///commit/8aa8528312a77bdc9ad72f3c28f56191d787a333))
 - ensure main function is called and add newline at end of file ([536edf7](https://github.com///commit/536edf76390d9173a57def94cd9e459bfa3999e7))
 
@@ -133,6 +147,9 @@
 
 ### Docs
 
+- update README.zh-CN.md to enhance feature descriptions and add detailed functionality overview ([1872f23](https://github.com///commit/1872f2380f616d3c5bc0c2b3148cda987b175bac))
+- update README.md to enhance feature descriptions and add detailed functionality overview ([00f1ff6](https://github.com///commit/00f1ff669c0179eb67a90d85ecd02707e72378d6))
+- update CHANGELOG.md to include recent feature additions and bug fixes ([7e8c8d8](https://github.com///commit/7e8c8d89b821ffbb1fb0b27fc42a4bc8d6dc0930))
 - update CHANGELOG.md to include recent bug fix for timestamp format in logger initialization ([0c2647d](https://github.com///commit/0c2647d4f47089968e967348883a893a40e03e2f))
 - add train_at_20251205_02-39-07-THULAC.log ([9f27b20](https://github.com///commit/9f27b208cec2000f0f94497f3d954f1f2717f603))
 - update CHANGELOG.md to reflect recent feature additions ([2f9dcbc](https://github.com///commit/2f9dcbca8adb0061e48d42cd58f7f4e6abd783dd))

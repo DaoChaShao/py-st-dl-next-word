@@ -6,13 +6,12 @@
 # @File     :   processor.py
 # @Desc     :   
 
-from random import randint
 from re import match
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
 from src.configs.cfg_base4dl import CONFIG4DL
-from src.datasets.eMun import SeqMode4DataSet
+from src.configs.cfg_types import SeqTaskMode
 from src.datasets.seq_next_step import TorchDataset4SeqPredictionNextStep
 from src.utils.helper import Timer
 from src.utils.highlighter import starts, lines
@@ -25,7 +24,7 @@ from src.utils.THU import cut_only
 def process_data() -> tuple[Dataset, Dataset, int]:
     """ Main Function """
     with Timer("Process Data"):
-        # Get the data from the database
+        # Get the data from the database: Method I
         sqlite = SQLiteIII(CONFIG4DL.DATABASE.TABLE, CONFIG4DL.DATABASE.COL)
         sqlite.connect()
         data = sqlite.get_all_data()
@@ -105,13 +104,13 @@ def process_data() -> tuple[Dataset, Dataset, int]:
         dataset4train = TorchDataset4SeqPredictionNextStep(
             seq4train,
             seq_max_len=CONFIG4DL.PREPROCESSOR.MAX_SEQUENCE_LEN,
-            mode=SeqMode4DataSet.SEQ2ONE,
+            mode=SeqTaskMode.SEQ2ONE,
             pad_token=dictionary["<PAD>"]
         )
         dataset4valid = TorchDataset4SeqPredictionNextStep(
             seq4valid,
             seq_max_len=CONFIG4DL.PREPROCESSOR.MAX_SEQUENCE_LEN,
-            mode=SeqMode4DataSet.SEQ2ONE,
+            mode=SeqTaskMode.SEQ2ONE,
             pad_token=dictionary["<PAD>"]
         )
         # idx4train: int = randint(0, len(dataset4train) - 1)

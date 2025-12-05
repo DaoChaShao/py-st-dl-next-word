@@ -18,8 +18,8 @@ def set_argument_parser():
     args = parser.parse_args()
     """
     Display hyperparameters You need to set before training using command lines:
-    1.Running: python main.py -h
-    2.Or running: python main.py --help
+    1.Running: python trainer.py -h
+    2.Or running: python trainer.py --help
     """
 
     return args

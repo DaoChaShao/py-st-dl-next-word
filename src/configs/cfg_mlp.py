@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths, Database
+from src.configs.cfg_base import Database, FilePaths, Punctuations
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -24,6 +24,7 @@ class Configuration4MLP:
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
     PARAMETERS: MLPParams = field(default_factory=MLPParams)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG4MLP = Configuration4MLP()

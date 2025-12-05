@@ -51,7 +51,8 @@ from .nlp import (regular_chinese, regular_english,
                   check_vocab_coverage)
 from .PT import (TorchRandomSeed,
                  check_device, get_device,
-                 series2tensor, sequences2tensors)
+                 item2tensor, sequences2tensors,
+                 TensorLogWriter)
 from .SQL import SQLiteIII
 from .stats import (NumpyRandomSeed,
                     load_csv, load_text, summary_dataframe,
@@ -87,7 +88,8 @@ __all__ = [
 
     "TorchRandomSeed",
     "check_device", "get_device",
-    "series2tensor", "sequences2tensors",
+    "item2tensor", "sequences2tensors",
+    "TensorLogWriter",
 
     "SQLiteIII",
 

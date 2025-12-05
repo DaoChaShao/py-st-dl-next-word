@@ -33,17 +33,17 @@ def main() -> None:
         # Separate the data
         _, _, sentences = create_full_data_split(data)
 
-        # Set a dictionary
+        # Tokenise the data
         # amount: int | None = 100
         amount: int | None = None
         items: list[str] = []
         if amount is None:
-            for line in tqdm(sentences, total=len(sentences), desc="Tokenizing Train Data"):
+            for line in tqdm(sentences, total=len(sentences), desc="Tokenizing Test Data"):
                 for item in cut_only(line):
                     if item in CONFIG4RNN.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items.append(item)
         else:
-            for line in tqdm(sentences[:amount], total=amount, desc="Tokenizing Train Data"):
+            for line in tqdm(sentences[:amount], total=amount, desc="Tokenizing Test Data"):
                 for item in cut_only(line):
                     if item in CONFIG4RNN.PUNCTUATIONS.CN or match(r"^[\u4e00-\u9fff]+$", item):
                         items.append(item)

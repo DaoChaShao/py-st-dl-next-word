@@ -17,6 +17,7 @@ dependencies = [
     "spacy>=3.8.11",
     "spacy-pkuseg>=1.0.1",
     "streamlit>=1.51.0",
+    "tensorboard>=2.20.0",
     "thulac>=0.2.2",
     "torch>=2.9.1",
     "torchsummary>=1.5.1",

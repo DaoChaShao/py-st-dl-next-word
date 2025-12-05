@@ -20,6 +20,7 @@ Main Categories:
 + cfg_mlp        : MLP/NLP-specific parameters (CONFIG4MLP, NLPParams)
 + cfg_rnn        : RNN-specific parameters (CONFIG4RNN, RNNParams)
 + cfg_unet       : UNet-specific parameters (CONFIG4UNET, UNetParams)
++ eMun: Some necessary options functionality
 + parser         : Parser module
 
 Usage:
@@ -39,6 +40,7 @@ from .cfg_cnn import CONFIG4CNN, Configuration4CNN, CNNParams
 from .cfg_mlp import CONFIG4MLP, Configuration4MLP, MLPParams
 from .cfg_rnn import CONFIG4RNN, Configuration4RNN, RNNParams
 from .cfg_unet import CONFIG4UNET, Configuration4UNet, UNetParams
+from .cfg_types import LangType, SeqTaskMode, TokenIntType, TokenStrType
 from .parser import set_argument_parser
 
 __all__ = [
@@ -48,5 +50,6 @@ __all__ = [
     "CONFIG4MLP", "Configuration4MLP", "MLPParams",
     "CONFIG4RNN", "Configuration4RNN", "RNNParams",
     "CONFIG4UNET", "Configuration4UNet", "UNetParams",
+    "LangType", "SeqTaskMode", "TokenIntType", "TokenStrType",
     "set_argument_parser"
 ]

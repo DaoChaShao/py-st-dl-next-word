@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass, field
 
-from src.configs.cfg_base import FilePaths, Database
+from src.configs.cfg_base import Database, FilePaths, Punctuations
 from src.configs.cfg_base4dl import DataPreprocessor, Hyperparameters
 
 
@@ -27,6 +27,7 @@ class Configuration4CNN:
     PARAMETERS: CNNParams = field(default_factory=CNNParams)
     PREPROCESSOR: DataPreprocessor = field(default_factory=DataPreprocessor)
     HYPERPARAMETERS: Hyperparameters = field(default_factory=Hyperparameters)
+    PUNCTUATIONS: Punctuations = field(default_factory=Punctuations)
 
 
 CONFIG4CNN = Configuration4CNN()

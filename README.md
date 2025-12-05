@@ -11,15 +11,55 @@ or [HundredCV-Chat (Mirror)](https://hf-mirror.com/datasets/Jax-dan/HundredCV-Ch
 input methods. By analyzing conversation texts related to resume images, the model learns language patterns and provides
 intelligent completion suggestions for user input.
 
-**DATA DESCRIPTION**
----
-
-
 
 **FEATURES**
 ---
 
+**🔧 1. One-click Model Initialization**
 
+- Automatically loads saved RNN model parameters
+- Loads dictionary and reverse dictionary
+- Retrieves all test data from SQLite
+- Splits and extracts usable sentences for prediction
+
+**✂️ 2. Chinese Tokenization & Preprocessing**
+
+- Uses `cut_only()` for accurate character-level Chinese segmentation
+- Filters punctuation and non-Chinese symbols
+- Supports full dataset or limited sample tokenization with progress bar
+
+**🎲 3. Random Sample Selection (Pick up a Data)**
+
+- Maps segmented tokens to dictionary indices
+- Randomly selects a fixed-length sequence window
+- Converts the sequence to a PyTorch tensor with batch dimension
+
+**🔮 4. Next-Word Prediction**
+
+- Performs inference using the trained `NormalRNNForClassification` model
+- Supports Temperature Scaling for sampling control
+- Softmax probability normalization
+- Top-K prediction supported and configurable
+
+**📊 5. Complete Visualization**
+
+- Full dictionary / reverse-dictionary visualization (data_editor)
+- Displays the selected Chinese text sequence
+- Shows the tokenized index sequence and tensor input
+- Displays prediction results (Top-K characters)
+
+**🌟 6. Full Process Timing**
+
+- Initialization timing
+- Random sequence pick timing
+- Prediction timing
+- Automatically displayed for performance diagnostics
+
+**🔁 7. Interactive Controls**
+
+- Repick: choose a new test sequence
+- Repredict: run inference again
+- UI refresh powered by `streamlit.rerun()`
 
 **PRIVACY NOTICE**
 ---

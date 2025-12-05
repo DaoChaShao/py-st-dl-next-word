@@ -80,8 +80,8 @@ with sidebar:
 
                     # Tokenise the data
                     with bars:
-                        amount: int | None = 100
-                        # amount: int | None = None
+                        # amount: int | None = 100
+                        amount: int | None = None
                         session_state["items"]: list[str] = []
                         if amount is None:
                             for line in stqdm(sentences, total=len(sentences), desc="Tokenizing Test Data"):
@@ -151,7 +151,7 @@ with sidebar:
 
                 if session_state["words"] is None:
                     temperature: float = number_input(
-                        "Temperature", 0.5, 1.6, 1.0, 0.1, disabled=True, width="stretch",
+                        "Temperature", 0.5, 1.6, 1.0, 0.1, disabled=False, width="stretch",
                         help="Set a temperature scaler controlling categorical randomness, lower values, lower randomness"
                     )
                     caption("The range is between 0.5 and 1.5.")

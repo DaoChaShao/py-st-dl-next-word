@@ -5,6 +5,9 @@
 
 ### Features
 
+- implement data preprocessing and model evaluation in evaluator.py ([7f838a5](https://github.com///commit/7f838a5ed81f5ef1414e6505b1a47ea49b9eeba7))
+- add configuration types for sequence tasks and language support ([db34941](https://github.com///commit/db34941a12316875d899c962f8bb0738d5fe2062))
+- add necessary options functionality and import types in __init__.py ([0a7b7e6](https://github.com///commit/0a7b7e67684f6bc4bc3d45067b70308244ae30d7))
 - add model.pth for next word prediction ([5c3c45e](https://github.com///commit/5c3c45ec7a686030055fb47ec0aeb686f2f63879))
 - update uv.lock to include new dependencies for tensorboard and grpcio ([4aa4332](https://github.com///commit/4aa43326d403ac35010bcffef25ebcdcc056cb95))
 - enhance evaluation metrics calculation with confusion matrix support ([8705b07](https://github.com///commit/8705b077e99b7e22cf54e9f46f12684652406ddc))
@@ -130,6 +133,7 @@
 
 ### Docs
 
+- update CHANGELOG.md to include recent bug fix for timestamp format in logger initialization ([0c2647d](https://github.com///commit/0c2647d4f47089968e967348883a893a40e03e2f))
 - add train_at_20251205_02-39-07-THULAC.log ([9f27b20](https://github.com///commit/9f27b208cec2000f0f94497f3d954f1f2717f603))
 - update CHANGELOG.md to reflect recent feature additions ([2f9dcbc](https://github.com///commit/2f9dcbca8adb0061e48d42cd58f7f4e6abd783dd))
 - update CHANGELOG.md to include recent feature additions and changes ([f5a9361](https://github.com///commit/f5a93619748637ec0577f7780e3cab22f290ba79))
@@ -141,5 +145,8 @@
 
 ### Code Refactoring
 
+- update data processing logic and improve mode handling in processor.py ([2a1eafa](https://github.com///commit/2a1eafa286764bb44cf1382f0846a0c20d489274))
+- update comments and improve dictionary handling in predictor.py ([0b48be3](https://github.com///commit/0b48be36f4c7890126de88aa651c585cf0526842))
+- remove unnecessary options functionality from __init__.py ([a9a17c2](https://github.com///commit/a9a17c2ea39cecf384a22ce769e37d6638ca5e75))
 - rename preparer.py to prepper.py and update main function to prepare_data ([6ac1988](https://github.com///commit/6ac1988eb7e63f414f92a58a8476710653317f82))
 

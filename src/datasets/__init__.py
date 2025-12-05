@@ -15,7 +15,6 @@ neural network tasks including regression, sequence classification,
 and semantic segmentation.
 
 Main Categories:
-+ eMun: Some necessary options functionality
 + TorchTrainer4Regression: Trainer for regression models with continuous-value prediction
 + TorchTrainer4Seq2Classification: Trainer for sequence classification tasks using RNN-based models
 + TorchTrainer4UNetSemSeg: Trainer for UNet-based semantic segmentation with image–mask supervision
@@ -30,7 +29,6 @@ Usage:
 __author__ = "Shawn Yu"
 __version__ = "0.2.0"
 
-from .eMun import SeqMode4DataSet
 from .label_classification import TorchDataset4LabelClassification
 from .reshaper import reshape_to_grayscale
 from .seq_classification import TorchDataset4Seq2Classification
@@ -39,7 +37,6 @@ from .mask_mapper import mask2index
 from .sem_seg import TorchDataset4SemanticSegmentation
 
 __all__ = [
-    "SeqMode4DataSet",
     "TorchDataset4LabelClassification",
     "reshape_to_grayscale",
     "TorchDataset4Seq2Classification",

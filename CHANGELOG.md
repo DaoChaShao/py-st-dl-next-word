@@ -121,6 +121,7 @@
 
 ### Bug Fixes
 
+- update timestamp format in logger initialization ([8aa8528](https://github.com///commit/8aa8528312a77bdc9ad72f3c28f56191d787a333))
 - ensure main function is called and add newline at end of file ([536edf7](https://github.com///commit/536edf76390d9173a57def94cd9e459bfa3999e7))
 
 ### Chore
@@ -129,7 +130,8 @@
 
 ### Docs
 
-- update CHANGELOG.md to reflect recent feature additions ([fee9c4d](https://github.com///commit/fee9c4dd2c0ddd63655dab98e2b19bf1cde59247))
+- add train_at_20251205_02-39-07-THULAC.log ([9f27b20](https://github.com///commit/9f27b208cec2000f0f94497f3d954f1f2717f603))
+- update CHANGELOG.md to reflect recent feature additions ([2f9dcbc](https://github.com///commit/2f9dcbca8adb0061e48d42cd58f7f4e6abd783dd))
 - update CHANGELOG.md to include recent feature additions and changes ([f5a9361](https://github.com///commit/f5a93619748637ec0577f7780e3cab22f290ba79))
 - update CHANGELOG.md to reflect recent additions and changes ([a646613](https://github.com///commit/a646613ad0c6b68532e2a05afb29a2e297984cf3))
 - update CHANGELOG.md ([4472b05](https://github.com///commit/4472b05321c9253355c6ad67ed27b1a1bd5368c8))

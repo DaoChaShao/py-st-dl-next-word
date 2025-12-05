@@ -7,16 +7,19 @@
 # @Desc     :   
 
 
-from numpy import ndarray
+from numpy import ndarray, array
 from sklearn.metrics import confusion_matrix
 
 
-def calculator_for_confusion_metrics(outputs: ndarray, targets: ndarray) -> dict[str, float]:
+def calculator_for_confusion_metrics(outputs: list[int], targets: list[int]) -> dict[str, float]:
     """ Calculate confusion metrics based on outputs and targets
     :param outputs: the predicted outputs
     :param targets: the ground truth outputs
     :return: a dict containing the confusion metrics
     """
+    outputs: ndarray = array(outputs)
+    targets: ndarray = array(targets)
+
     cm = confusion_matrix(targets, outputs)
 
     metrics: dict[str, float] = {}

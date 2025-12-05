@@ -113,7 +113,7 @@ class TorchTrainer(QObject):
         :return: None
         """
         # Initialize logger
-        timer = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        timer = datetime.now().strftime("%Y%m%d_%H-%M-%S")
         logger = record_log(f"train_at_{timer}-{log_name}")
 
         _best_valid_loss = float("inf")
